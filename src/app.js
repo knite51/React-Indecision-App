@@ -1,12 +1,14 @@
 const app = {
   title: 'Indecision App',
-  subTitle: 'Here you go'
+  subTitle: 'Here you go',
+  options: ['One', 'Two'],
 };
 
 const template = (
   <div>
-    <h1>{app.title + '!'}</h1>
-    <p>{app.subTitle}</p>
+    <h1>{app.title}</h1>
+    {app.subTitle && <h1>{app.subTitle}</h1>}
+    <p>{app.options.length > 0 ? 'Here are your options' : 'No Options'}</p>
     <ol>
       <li>Item One</li>
       <li>Item Two</li>
@@ -34,4 +36,4 @@ const templateTwo = (
   </div>
 );
 
-ReactDOM.render(templateTwo, document.getElementById('app'));
+ReactDOM.render(template, document.getElementById('app'));

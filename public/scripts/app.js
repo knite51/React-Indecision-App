@@ -2,7 +2,8 @@
 
 var app = {
   title: 'Indecision App',
-  subTitle: 'Here you go'
+  subTitle: 'Here you go',
+  options: ['One', 'Two']
 };
 
 var template = React.createElement(
@@ -11,12 +12,17 @@ var template = React.createElement(
   React.createElement(
     'h1',
     null,
-    app.title + '!'
+    app.title
+  ),
+  app.subTitle && React.createElement(
+    'h1',
+    null,
+    app.subTitle
   ),
   React.createElement(
     'p',
     null,
-    app.subTitle
+    app.options.length > 0 ? 'Here are your options' : 'No Options'
   ),
   React.createElement(
     'ol',
@@ -67,4 +73,4 @@ var templateTwo = React.createElement(
   getLocation(user.location)
 );
 
-ReactDOM.render(templateTwo, document.getElementById('app'));
+ReactDOM.render(template, document.getElementById('app'));
