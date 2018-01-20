@@ -1,19 +1,54 @@
 'use strict';
 
+var app = {
+  title: 'Indecision App',
+  subTitle: 'Here you go'
+};
+
 var template = React.createElement(
   'div',
   null,
   React.createElement(
     'h1',
     null,
-    'Welcome home Ayotunde Olubiyo.'
+    app.title + '!'
   ),
   React.createElement(
     'p',
     null,
-    'You are Genius Believe it!'
+    app.subTitle
+  ),
+  React.createElement(
+    'ol',
+    null,
+    React.createElement(
+      'li',
+      null,
+      'Item One'
+    ),
+    React.createElement(
+      'li',
+      null,
+      'Item Two'
+    )
   )
 );
+
+var user = {
+  name: 'Ayotunde Olubiyo',
+  age: 23,
+  location: 'Lagos, Nigeria'
+};
+var getLocation = function getLocation(location) {
+  if (location) {
+    return React.createElement(
+      'p',
+      null,
+      'Location: ',
+      location
+    );
+  }
+};
 
 var templateTwo = React.createElement(
   'div',
@@ -21,18 +56,15 @@ var templateTwo = React.createElement(
   React.createElement(
     'h1',
     null,
-    'Ayotunde'
+    user.name ? user.name : 'Anonymous'
   ),
-  React.createElement(
+  user.age && user.age >= 18 && React.createElement(
     'p',
     null,
-    'Age: 23'
+    'Age: ',
+    user.age
   ),
-  React.createElement(
-    'p',
-    null,
-    'Location: Lagos, Nigeria'
-  )
+  getLocation(user.location)
 );
 
 ReactDOM.render(templateTwo, document.getElementById('app'));
