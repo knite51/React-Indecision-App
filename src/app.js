@@ -1,39 +1,43 @@
 const app = {
   title: 'Indecision App',
   subTitle: 'Here you go',
-  options: ['One', 'Two'],
+  options: [],
 };
 
-const template = (
-  <div>
-    <h1>{app.title}</h1>
-    {app.subTitle && <h1>{app.subTitle}</h1>}
-    <p>{app.options.length > 0 ? 'Here are your options' : 'No Options'}</p>
-    <ol>
-      <li>Item One</li>
-      <li>Item Two</li>
-    </ol>
-  </div>
-);
-
-const user = {
-  name: 'Ayotunde Olubiyo',
-  age: 23,
-  location: 'Lagos, Nigeria'
-};
-const getLocation = (location) => {
-  if(location){
-    return <p>Location: {location}</p>
+const onFormSubmit = (e) => {
+  e.preventDefault();
+  const value = e.target.elements.option.value;
+  if(value){
+    app.options.push(e.target.elements.option.value);
+    e.target.elements.option.value = '';
+    rerenderForm();
   }
+}
+
+const removeOptions = () => {
+  app.options = [];
+  rerenderForm();
+}
+
+const rerenderForm = () => {
+  const template = (
+    <div>
+      <h1>{app.title}</h1>
+      {app.subTitle && <h1>{app.subTitle}</h1>}
+      <p>{app.options.length > 0 ? 'Here are your options' : 'No Options'}</p>
+      <p>{app.options.length}</p>
+      <button onClick={removeOptions}>RemoveAll</button>
+      <ol>
+        <li>Item One</li>
+        <li>Item Two</li>
+      </ol>
+      <form onSubmit={onFormSubmit}>
+        <input type='text' name='option' />
+        <button>Add Option</button>
+      </form>
+    </div>
+  );
+
+  ReactDOM.render(template, document.getElementById('app'));
 };
-
-
-const templateTwo = (
-  <div>
-    <h1>{user.name ? user.name : 'Anonymous'}</h1>
-    {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
-    {getLocation(user.location)}
-  </div>
-);
-
-ReactDOM.render(template, document.getElementById('app'));
+rerenderForm();
