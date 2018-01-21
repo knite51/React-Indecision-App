@@ -17,6 +17,12 @@ const onFormSubmit = (e) => {
 const removeOptions = () => {
   app.options = [];
   rerenderForm();
+};
+
+const onClickDecision = () => {
+  let randomNum = Math.floor(Math.random() * app.options.length);
+  let option = app.options[randomNum];
+  alert(option);
 }
 
 const rerenderForm = () => {
@@ -25,11 +31,14 @@ const rerenderForm = () => {
       <h1>{app.title}</h1>
       {app.subTitle && <h1>{app.subTitle}</h1>}
       <p>{app.options.length > 0 ? 'Here are your options' : 'No Options'}</p>
-      <p>{app.options.length}</p>
+      <button disabled = {app.options.length <= 0} onClick={onClickDecision}>What Should I do</button>
       <button onClick={removeOptions}>RemoveAll</button>
       <ol>
-        <li>Item One</li>
-        <li>Item Two</li>
+        {
+          app.options.map((option) => {
+            return <li key={option}>{option}</li>
+          })
+        }
       </ol>
       <form onSubmit={onFormSubmit}>
         <input type='text' name='option' />

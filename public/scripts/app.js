@@ -1,81 +1,57 @@
 'use strict';
 
-var app = {
-  title: 'Indecision App',
-  subTitle: 'Here you go',
-  options: []
-};
+var text = void 0;
+var buttonInfo = 'Show Details';
 
-var onFormSubmit = function onFormSubmit(e) {
-  e.preventDefault();
-  var value = e.target.elements.option.value;
-  if (value) {
-    app.options.push(e.target.elements.option.value);
-    e.target.elements.option.value = '';
-    rerenderForm();
+var onToggle = function onToggle() {
+  if (buttonInfo === 'Show Details') {
+    text = React.createElement(
+      'p',
+      null,
+      'These are some element'
+    );
+    buttonInfo = 'Hide Details';
+  } else {
+    text = undefined;
+    buttonInfo = 'Show Details';
   }
+  rerender();
 };
 
-var removeOptions = function removeOptions() {
-  app.options = [];
-  rerenderForm();
-};
-
-var rerenderForm = function rerenderForm() {
-  var template = React.createElement(
+var rerender = function rerender() {
+  var visible = React.createElement(
     'div',
     null,
     React.createElement(
       'h1',
       null,
-      app.title
-    ),
-    app.subTitle && React.createElement(
-      'h1',
-      null,
-      app.subTitle
-    ),
-    React.createElement(
-      'p',
-      null,
-      app.options.length > 0 ? 'Here are your options' : 'No Options'
-    ),
-    React.createElement(
-      'p',
-      null,
-      app.options.length
+      'Visibility Toggle'
     ),
     React.createElement(
       'button',
-      { onClick: removeOptions },
-      'RemoveAll'
+      { onClick: onToggle },
+      buttonInfo
     ),
-    React.createElement(
-      'ol',
-      null,
-      React.createElement(
-        'li',
-        null,
-        'Item One'
-      ),
-      React.createElement(
-        'li',
-        null,
-        'Item Two'
-      )
-    ),
-    React.createElement(
-      'form',
-      { onSubmit: onFormSubmit },
-      React.createElement('input', { type: 'text', name: 'option' }),
-      React.createElement(
-        'button',
-        null,
-        'Add Option'
-      )
-    )
+    text
   );
-
-  ReactDOM.render(template, document.getElementById('app'));
+  ReactDOM.render(visible, document.getElementById('app'));
 };
-rerenderForm();
+rerender();
+
+//or
+//  let v = false;
+
+//  const t = () => {
+//    v = !v;
+//    render();
+//  };
+
+//  const render = () => {
+//    const j = (
+//      <div>
+//       <h1>Vs</h1>
+//       <button onClick={t}>{v ? 'Hide': 'Show'}</button>
+//       {v && (<p>Yo it worked</p>)}
+//      </div>
+//    )
+//  }
