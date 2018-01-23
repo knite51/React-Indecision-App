@@ -1,44 +1,29 @@
-
-let text ;
-let buttonInfo = 'Show Details';
-
-const onToggle = () => {
-  if(buttonInfo === 'Show Details'){
-    text = <p>These are some element</p>;
-    buttonInfo = 'Hide Details';
-  }else{
-    text = undefined;
-    buttonInfo = 'Show Details';
+class Toggle extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      visible: false,
+    }
+    this.handleToggle = this.handleToggle.bind(this);
   }
-  rerender(); 
+  handleToggle(){
+    this.setState((prevState) => {
+      return ({
+        visible: !(prevState.visible)
+      });
+    });
+  }
+  render(){
+    return(
+      <div>
+        <h1>Toggle Button</h1>
+        <button onClick={this.handleToggle}>
+          {this.state.visible ? 'Hide Details' : 'Show Details' }
+        </button>
+        {this.state.visible && <p>Hey you go Man!</p>}
+      </div>
+    );
+  }
 }
 
-const rerender = () => {
-  const visible = (
-    <div>
-      <h1>Visibility Toggle</h1>
-      <button onClick={onToggle}>{buttonInfo}</button>
-      {text}
-    </div>
-  );
-  ReactDOM.render(visible, document.getElementById('app'));
-};
-rerender();
-
-//or
-//  let v = false;
-
-//  const t = () => {
-//    v = !v;
-//    render();
-//  };
-
-//  const render = () => {
-//    const j = (
-//      <div>
-//       <h1>Vs</h1>
-//       <button onClick={t}>{v ? 'Hide': 'Show'}</button>
-//       {v && (<p>Yo it worked</p>)}
-//      </div>
-//    )
-//  }
+ReactDOM.render(<Toggle />, document.getElementById('app'));
